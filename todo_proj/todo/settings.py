@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
+    'drf_yasg',#for documenting schema in a more readable structure(schema is all available API endpoints)
 
 
     #local

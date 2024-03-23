@@ -1,9 +1,13 @@
 import React, { useState } from 'react';
+import {useNavigate} from 'react-router-dom';
 import App from './App';
 import Login from './Login';
+import SignUp from './SignUp';
+
 
 function HomePageWrapper() {
-    console.log(localStorage.token)
+    const navigate = useNavigate();
+    
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.token);
 
     const handleLogin = () => {
@@ -12,15 +16,14 @@ function HomePageWrapper() {
 
     const handleLogout = () => {
         setIsLoggedIn(false);
+        localStorage.removeItem('token');
     };
+
 
     return (
         <div>
-            {isLoggedIn ? (
-                <App onLogout={handleLogout} />
-            ) : (
-                <Login onLogin={handleLogin} />
-            )}
+            <button onClick={()=>navigate('/signup')}>Sign Up</button>
+            <button onClick={()=>navigate('/login')}>Login</button>
         </div>
     );
 }

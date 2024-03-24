@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import Task from './Task'
 
+
 const API_BASE_URL = 'http://localhost:8000/';
 
 function App(){
@@ -114,35 +115,44 @@ function App(){
     return(
     localStorage.getItem('token')
     ?
+    <div className='bg-[url("https://player.hu/uploads/2020/10/Jean-Claude-Van-Damme.jpg")] h-screen bg-cover'>
     <div className='flex flex-col items-center justify-center '>
-      <form className='w-full' onSubmit={add_task}>
-        <div className='flex flex-inline gap-48 justify-center'>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>
-            New task:
-            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              type="text" name="title" value={formData.title} onChange={handleInputChange} />
-          </label>
-          <label className='block text-gray-700 text-sm font-bold mb-2'>
-            Details:
-            <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
-              type="text" name="body" value={formData.body} onChange={handleInputChange} />
-          </label>
+    <form className='flex flex-col w-full items-center' onSubmit={add_task}>
+        <div className='flex gap-16 justify-items-center'>
+            <div>
+                <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    New task:
+                    <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                        type="text" name="title" value={formData.title} onChange={handleInputChange} />
+                </label>
+            </div>
+            <div>
+                <label className='block text-gray-700 text-sm font-bold mb-2'>
+                    Details:
+                    <input className='shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'
+                        type="text" name="body" value={formData.body} onChange={handleInputChange} />
+                </label>
+            </div>
+            
         </div>
-        <button className='block mx-auto bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-          type="submit">Add Task</button>
-      </form>
+        <button className='bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+                type="submit">Add Task</button>
+    </form>
 
-      <div>
-        </div>
-          <p>Your Tasklist:</p>
-        <div>
-            {tasklist.map(task=>(
-              <Task task={task} func_delete_task={delete_task} func_get_tasks={get_tasks} func_edit_task={edit_task}/>
-            ))}
-       </div>
-       <button className='block mx-auto bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
-          onClick={onLogout}>Logout</button>
+    <div className="absolute top-0 right-0 mt-4 mr-4 lg:mt-0 lg:mr-0">
+        <button className='bg-red-500 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline'
+            onClick={onLogout}>Logout</button>
     </div>
+
+    <p className='mt-4'>Your Tasklist:</p>
+    <div className="grid grid-cols-3 gap-4">
+        {tasklist.map(task => (
+            <Task key={task.id} task={task} func_delete_task={delete_task} func_get_tasks={get_tasks} func_edit_task={edit_task} />
+        ))}
+    </div>
+</div>
+</div>
+
     :
     navigate('/')
     ) 
